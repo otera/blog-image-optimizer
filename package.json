@@ -2,7 +2,7 @@
   "name": "blog-image-optimizer",
   "version": "1.0.0",
   "description": "Hugo blog image optimizer - resize, compress, convert formats, and remove metadata",
-  "main": "src/index.js",
+  "main": "src/optimizer.js",
   "type": "module",
   "bin": {
     "optimize-image": "./src/cli.js"
@@ -18,12 +18,27 @@
     "blog",
     "resize",
     "compress",
-    "convert"
+    "convert",
+    "sharp",
+    "webp",
+    "avif"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/blog-image-optimizer.git"
+  },
+  "files": [
+    "src/"
   ],
   "author": "",
   "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "dependencies": {
     "sharp": "^0.33.0",
     "commander": "^11.1.0"
-  }
+  },
+  "peerDependencies": {},
+  "devDependencies": {}
 }

@@ -13,95 +13,131 @@ Hugo ブログ用の画像最適化ツールです。画像のリサイズ、圧
 
 ## インストール
 
+### 他のプロジェクトから使用する場合
+
+#### ローカルパスから直接インストール
+
+```bash
+# プロジェクトのディレクトリで
+npm install /path/to/blog-image-optimizer
+
+# または相対パスで
+npm install ../blog-image-optimizer
+```
+
+#### グローバルインストール（どこからでも使える）
+
+```bash
+# このリポジトリのディレクトリで
+npm install -g .
+
+# または別の場所から
+npm install -g /path/to/blog-image-optimizer
+```
+
+### 開発用（このリポジトリ内で）
+
 ```bash
 npm install
 ```
 
 ## 使い方
 
-### 基本的な使い方
+### CLIコマンドとして使用
+
+インストール後は `optimize-image` コマンドが使えます。
 
 ```bash
 # 単一ファイルの最適化（デフォルト画質80%、メタデータ削除）
-node src/cli.js input.jpg
+optimize-image input.jpg
 
 # ディレクトリ内の全画像を最適化
-node src/cli.js ./images
+optimize-image ./images
 
 # サブディレクトリも含めて再帰的に処理
-node src/cli.js ./images -r
+optimize-image ./images -r
+```
+
+### 開発モード（このリポジトリ内で）
+
+```bash
+# 単一ファイルの最適化
+node src/cli.js input.jpg
+
+# またはnpmスクリプトで
+npm start -- input.jpg
 ```
 
 ### リサイズ
 
 ```bash
 # 幅を指定（アスペクト比を保持）
-node src/cli.js input.jpg -w 800
+optimize-image input.jpg -w 800
 
 # 高さを指定（アスペクト比を保持）
-node src/cli.js input.jpg -h 600
+optimize-image input.jpg -h 600
 
 # 幅と高さを指定（アスペクト比を保持して収まるサイズに）
-node src/cli.js input.jpg -w 800 -h 600
+optimize-image input.jpg -w 800 -h 600
 
 # スケール倍率で指定（50%に縮小）
-node src/cli.js input.jpg -s 0.5
+optimize-image input.jpg -s 0.5
 ```
 
 ### 画質調整
 
 ```bash
 # 画質を指定（1-100、デフォルト: 80）
-node src/cli.js input.jpg -q 90
+optimize-image input.jpg -q 90
 
 # 高圧縮（ファイルサイズ優先）
-node src/cli.js input.jpg -q 60
+optimize-image input.jpg -q 60
 ```
 
 ### フォーマット変換
 
 ```bash
 # PNG を JPEG に変換
-node src/cli.js input.png -f jpeg
+optimize-image input.png -f jpeg
 
 # JPEG を WebP に変換（次世代フォーマット）
-node src/cli.js input.jpg -f webp
+optimize-image input.jpg -f webp
 
 # AVIF 形式に変換（最高の圧縮率）
-node src/cli.js input.jpg -f avif
+optimize-image input.jpg -f avif
 ```
 
 ### 出力先の指定
 
 ```bash
 # 出力ディレクトリを指定
-node src/cli.js input.jpg -o ./output
+optimize-image input.jpg -o ./output
 
 # 出力ファイル名を指定
-node src/cli.js input.jpg -n optimized.jpg
+optimize-image input.jpg -n optimized.jpg
 
 # 両方を指定
-node src/cli.js input.jpg -o ./output -n thumbnail.jpg
+optimize-image input.jpg -o ./output -n thumbnail.jpg
 ```
 
 ### メタデータの保持
 
 ```bash
 # メタデータを削除せずに保持
-node src/cli.js input.jpg --keep-metadata
+optimize-image input.jpg --keep-metadata
 ```
 
 ### 複合例
 
 ```bash
 # Hugo ブログ用に最適化（幅800px、画質85、WebP形式、メタデータ削除）
-node src/cli.js ./static/images -r -w 800 -q 85 -f webp -o ./static/images/optimized
+optimize-image ./static/images -r -w 800 -q 85 -f webp -o ./static/images/optimized
 
 # サムネイル作成（50%縮小、画質80、JPEG形式）
-node src/cli.js hero.png -s 0.5 -q 80 -f jpeg -n hero-thumbnail.jpg
+optimize-image hero.png -s 0.5 -q 80 -f jpeg -n hero-thumbnail.jpg
 
 # モバイル用画像（幅480px、画質75、WebP形式）
-node src/cli.js ./images -r -w 480 -q 75 -f webp -o ./images/mobile
+optimize-image ./images -r -w 480 -q 75 -f webp -o ./images/mobile
 ```
 
 ## オプション一覧
@@ -134,12 +170,12 @@ node src/cli.js ./images -r -w 480 -q 75 -f webp -o ./images/mobile
 - WebP (.webp) - 次世代フォーマット、優れた圧縮率
 - AVIF (.avif) - 最新フォーマット、最高の圧縮率
 
-## パッケージとして使用
+## Node.js プログラムから使用
 
-プログラムから直接利用することもできます。
+他のプロジェクトのコードから直接利用することもできます。
 
 ```javascript
-import { optimizeImage, optimizeImages } from './src/optimizer.js';
+import { optimizeImage, optimizeImages } from 'blog-image-optimizer';
 
 // 単一ファイルの最適化
 const outputPath = await optimizeImage('input.jpg', {
@@ -161,17 +197,17 @@ const results = await optimizeImages(['img1.jpg', 'img2.png'], {
 
 ### ヒーロー画像
 ```bash
-node src/cli.js hero.jpg -w 1200 -q 85 -f webp
+optimize-image hero.jpg -w 1200 -q 85 -f webp
 ```
 
 ### 記事内の画像
 ```bash
-node src/cli.js article-images/ -r -w 800 -q 80 -f webp -o ./optimized
+optimize-image article-images/ -r -w 800 -q 80 -f webp -o ./optimized
 ```
 
 ### サムネイル
 ```bash
-node src/cli.js thumbnails/ -r -w 400 -q 75 -f webp -o ./optimized
+optimize-image thumbnails/ -r -w 400 -q 75 -f webp -o ./optimized
 ```
 
 ## Tips

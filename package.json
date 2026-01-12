@@ -1,0 +1,29 @@
+{
+  "name": "blog-image-optimizer",
+  "version": "1.0.0",
+  "description": "Hugo blog image optimizer - resize, compress, convert formats, and remove metadata",
+  "main": "src/index.js",
+  "type": "module",
+  "bin": {
+    "optimize-image": "./src/cli.js"
+  },
+  "scripts": {
+    "start": "node src/cli.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "image",
+    "optimization",
+    "hugo",
+    "blog",
+    "resize",
+    "compress",
+    "convert"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "sharp": "^0.33.0",
+    "commander": "^11.1.0"
+  }
+}

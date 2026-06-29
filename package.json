@@ -36,8 +36,8 @@
     "node": ">=14.0.0"
   },
   "dependencies": {
-    "sharp": "^0.33.0",
-    "commander": "^11.1.0"
+    "sharp": "^0.35.2",
+    "commander": "^15.0.0"
   },
   "peerDependencies": {},
   "devDependencies": {}

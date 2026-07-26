@@ -1,7 +1,7 @@
 {
   "name": "blog-image-optimizer",
   "version": "1.0.0",
-  "description": "Hugo blog image optimizer - resize, compress, convert formats, and remove metadata",
+  "description": "Image optimizer - resize, compress, convert formats, and remove metadata",
   "main": "src/optimizer.js",
   "type": "module",
   "bin": {
@@ -14,8 +14,6 @@
   "keywords": [
     "image",
     "optimization",
-    "hugo",
-    "blog",
     "resize",
     "compress",
     "convert",
